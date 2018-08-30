@@ -251,3 +251,43 @@ order by 要位于where之后
 BETWEEN 在指定的两个值之间
 ```
 
+```
+select 列名，列名 from 表 where 列名 != 数字    这种只能用！=
+```
+
+
+
+# 七、数据过滤
+
+1,and 操作符号
+
+两个条件并列。
+
+```
+select 列1，列2 from 表 where 条件1 and 条件2
+```
+
+两个条件筛选。
+
+每添一条过滤条件就要使用一个and
+
+2，or操作符号
+
+两个条件有一个成立就行
+
+```
+select 列1，列2，列3 from 表 where 条件1 or 条件2
+```
+
+3、计算次序
+
+```
+select 列1，列2，列3 from 表 where 条件1 or 条件2 and 条件3
+```
+
+
+
+```
+select 列1，列2，列3 from 表 where (条件1 or 条件2) and 条件3
+```
+
