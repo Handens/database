@@ -62,9 +62,192 @@
 
 ​	可以直接在终端输入mysql就可以进入
 
-​	个别需要输入mysql -u root -p 启动     -u 是用户登录    root 是用户名  -p 是使用密码登录  -h 服务器地址  -P 端口
+​	个别需要输入
+
+```
+mysql -u root -p 
+```
+
+启动     -u 是用户登录    root 是用户名  -p 是使用密码登录  -h 服务器地址  -P 端口
 
 ​	用；结束
 
 输入help或者\h获取帮助
+
+quit或者exit
+
+
+
+# 三、使用MySQL
+
+1,连接
+
+主机名：localhost  或者   127.0.0.1
+
+端口：默认3306
+
+用户名
+
+密码
+
+列如：数据库名字movie
+
+切换数据库:
+
+```
+use movie
+```
+
+显示数据库:
+
+```
+show databases
+```
+
+显示所有的表:
+
+```
+show tables
+```
+
+选择当前数据库可用的表
+
+```
+show columus from 表名
+```
+
+或者
+
+```
+describe  表明
+```
+
+支持的其他语言
+
+```
+show status 显示服务器状态
+show create database/table  显示创建特定数据库或表的mysql语句
+show grants 显示安全权限
+show errors/warnings 显示服务器错误或警告
+```
+
+```
+show help 显示所有允许的show语句
+```
+
+
+
+# 四、检索数据
+
+1，检索单列
+
+```
+select 列名 from 表
+```
+
+2，检索多列
+
+```
+select 列名，列名，列名 from 表名
+```
+
+3，检索所有
+
+```
+select * from 表名
+```
+
+4，检索不同的行
+
+```
+select distinct 列 from 表名
+```
+
+distinct 不能被部分使用，除非都不同否则所有行都将检索
+
+5，限制结果
+
+显示前数字个
+
+```
+select 列名 from 表名 limit 数字
+```
+
+显示从数字1开始，后面的数字2个
+
+```
+select 列名 from 表名 limit 数字1,数字2
+或
+select 列名 from 表名 limit 数字1 offset 数字2
+```
+
+检索的第一行是行0 不是行1
+
+检索不够，直接返回能返回的行数
+
+6，使用完全限定表名
+
+```
+select 表名.行名 from 表名
+select 表名.行名 from 数据库.表名
+```
+
+
+
+# 五、排序检索数据
+
+不加排序条件，直接检索出来的顺序是无序的。
+
+单列排序
+
+```
+select 列名 from 表名 order by 列名
+```
+
+多列排序
+
+```
+select 列名1, 列名2 from 表名 order by 列名1, 列名2
+```
+
+先按列名1的排序，不同时，才开始排列名2
+
+指定排序方向
+
+默认是升序，加了desc变为降序
+
+```
+select 列名1, 列名2 from 表名 order by 列名1, 列名2 desc
+```
+
+需要的后列名后面加desc
+
+用limit要加在最后
+
+```
+select 列名1, 列名2 from 表名 order by 列名1, 列名2 desc limit 数字
+```
+
+
+
+# 六、数据过滤
+
+1，where子句
+
+```
+select 列名1 from 表名 where 列名1 = 数字 
+```
+
+order by 要位于where之后
+
+```
+= 等于
+<> 不等于
+!= 不等于
+< 小于
+<= 小于等于
+> 大于
+>= 大于等于
+BETWEEN 在指定的两个值之间
+```
 
