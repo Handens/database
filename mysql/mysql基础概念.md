@@ -511,7 +511,7 @@ select 列1，列2，列1*列2 as 列名 from 表名
 
 
 
-# 11，使用数据处理函数
+# 十一，使用数据处理函数
 
 1，函数
 
@@ -614,7 +614,7 @@ Tan() 		返回一个角度的正切
 
 
 
-# 12、汇总数据
+# 十二、汇总数据
 
 1，聚集函数（运行在行组上，计算和返回单个值的函数）
 
@@ -647,7 +647,149 @@ NULL：avg（）函数忽略列值为null的行
 
 1.2，count（）函数
 
-count(*)表中所有行进行计数，不管表中包含是空值（NULL)还是非空值
+count(*)表中所有行进行计数，**不管表中包含是空值（NULL)还是非空值**
 
-count(column)特定的行进行计数
+count(column)特定的行进行计数   **忽略NULL**
 
+对所有：
+
+```
+select count(*) as 新名称 from 表
+```
+
+对列：
+
+```
+select count(列) as 新名称 from 表
+```
+
+1.3 min(),max()
+
+最大最小值
+
+```
+select max/min(列) as 新列名 from 表
+```
+
+**自动忽略NULL**的行
+
+如果是按特定的行，那么就是最后/最前(max/min)一行
+
+1.4 sum()
+
+```
+select sum(行) as 新列名 from 表 where 条件
+```
+
+**自动忽略NULL**的行
+
+
+
+2，聚集不同值
+
+**distinct**这个只能MySQL 5 以上的版本，5以下版本不支持   all是默认参数，不指定distinct 假定为all
+
+2.1 
+
+```
+selet avg(distinct 列) as 新列名 from 表 where 条件
+```
+
+只计算不同的值
+
+如果指定列名，只能用count（），不能用count（*），不能用于计算或表达式
+
+3，组合聚集函数
+
+select 可根据需要包含多个聚集函数
+
+```
+select count(*) as 新列名 ,
+	min(列名) as 新列名，
+	max(列名) as 新列名，
+	avg(列名) as 新列名，
+from 表
+```
+
+
+
+# 十三，分组数据
+
+1，创建分组
+
+group by
+
+```
+select 列1 ，列 as 新列名 from 表 group by 列1 
+```
+
+**注意事项**：
+
+​	·group by 可以包含任意数目的列
+
+​	·group by中嵌套分组，最后数值全部取回，不能单个取回
+
+​	·group by 子句每个列必须是检索列和有效表达式，子句后跟相同表达式，	不能使用别名
+
+​	·除了聚集计算，每个列必须在group by子句中给出
+
+​	·如果分组中有null，则作为分组返回，如果是多行，则分为一组
+
+​	·group by 子句必须出现在where子句之后，order by之前
+
+
+
+每个分组以及分组汇总级别的值
+
+```
+select 列1 ，列 as 新列名 from 表 group by 列1 with rollup    
+```
+
+
+
+2，过滤分组
+
+having过滤分组，where只能过滤行。
+
+having支持where的所有操作符
+
+```
+select 列1，列 as 新列名 from 表 group by 列 having 过滤条件
+```
+
+having和where并用
+
+```
+select 列1，列2 as 新列名 from 表 where 条件1 group by 列 having 条件2
+```
+
+3，分组和排序
+
+```
+	ORDER BY 					GROUP BY 
+排序产生的输出 				分组行。但输出可能不是分组的顺序
+任意列都可以使用（甚至				只可能使用选择列或表达式列，而且必须使用每个选择
+非选择的列也可以使用）				列表达式
+不一定需要 						如果与聚集函数一起使用列（或表达式），则必须使用
+```
+
+用group by 的子句用order by来排序的唯一方法
+
+```
+select 列1 列2 as 新列名 from 表 group by 列 having 条件 order by 列
+```
+
+4，select 顺序
+
+```
+子 句 		说 明 			是否必须使用
+SELECT 		要返回的列或表达式 		是
+FROM 		从中检索数据的表 		仅在从表选择数据时使用
+WHERE		 行级过滤				 否
+GROUP BY 		分组说明 		仅在按组计算聚集时使用
+HAVING 			组级过滤 			否
+ORDER BY 		输出排序顺序 			否
+LIMIT			 要检索的行数			 否
+```
+
+十四、
